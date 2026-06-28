@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destiny 2 Checkpoint Bot Queue Helper</title>
+    <title>Destiny 2 Checkpoint Terminal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Space+Grotesk:wght@300;400;500;600&display=swap');
         
         body {
             font-family: 'Space Grotesk', sans-serif;
@@ -27,75 +27,72 @@
             border: 1px solid rgba(245, 166, 35, 0.2);
         }
 
+        .tech-corners { position: relative; }
         .tech-corners::before {
-            content: ''; position: absolute; top: -1px; left: -1px; width: 12px; height: 12px;
-            border-top: 3px solid rgba(245, 166, 35, 0.85); border-left: 3px solid rgba(245, 166, 35, 0.85);
+            content: ''; position: absolute; top: -1px; left: -1px; width: 8px; height: 8px;
+            border-top: 2px solid rgba(245, 166, 35, 0.6); border-left: 2px solid rgba(245, 166, 35, 0.6);
         }
-        
         .tech-corners::after {
-            content: ''; position: absolute; bottom: -1px; right: -1px; width: 12px; height: 12px;
-            border-bottom: 3px solid rgba(245, 166, 35, 0.85); border-right: 3px solid rgba(245, 166, 35, 0.85);
+            content: ''; position: absolute; bottom: -1px; right: -1px; width: 8px; height: 8px;
+            border-bottom: 2px solid rgba(245, 166, 35, 0.6); border-right: 2px solid rgba(245, 166, 35, 0.6);
         }
 
-        /* Scrollbar styles */
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.3); }
-        ::-webkit-scrollbar-thumb { background: rgba(245, 166, 35, 0.4); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: rgba(245, 166, 35, 0.3); }
     </style>
 </head>
-<body class="min-h-screen text-slate-200">
+<body class="min-h-screen text-slate-300">
 
     <header class="border-b border-amber-500/20 bg-slate-950/95 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <div>
-                <h1 class="text-2xl font-bold tracking-[0.2em] text-white">TRAVELER'S CHOSEN</h1>
-                <p class="text-xs text-amber-500 tracking-[0.3em] uppercase">Vanguard Terminal</p>
+                <h1 class="text-lg font-bold tracking-[0.15em] text-white">TRAVELER_TERMINAL</h1>
+                <p class="text-[10px] text-amber-500/70 tracking-[0.25em] uppercase">Vanguard // Checkpoint_Helper</p>
             </div>
-            <div class="px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded-sm">
-                <span class="text-[10px] font-mono tracking-widest text-amber-400 uppercase">CONSOLE // ACTIVE</span>
+            <div class="px-2 py-0.5 border border-amber-500/30">
+                <span class="text-[9px] font-mono tracking-widest text-amber-500/80 uppercase">READY</span>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <main class="max-w-6xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- Left: Config & Activity -->
         <section class="lg:col-span-8 space-y-6">
-            <div class="destiny-panel tech-corners p-6 rounded-sm">
-                <label class="text-sm font-bold text-amber-500 flex items-center gap-2 uppercase mb-4">
-                    <i data-lucide="user" class="w-4 h-4"></i> Guardian Identifier
+            <div class="destiny-panel tech-corners p-5">
+                <label class="text-[10px] font-bold text-amber-500 flex items-center gap-2 uppercase mb-3">
+                    <i data-lucide="shield-check" class="w-3 h-3"></i> Bungie Identifier
                 </label>
-                <input type="text" id="bungiename" onkeyup="updatePreview()" placeholder="GUARDIAN#0000" class="w-full bg-black border border-slate-700 p-4 text-xl tracking-wider text-white focus:border-amber-500 outline-none transition-all">
+                <input type="text" id="bungiename" onkeyup="updatePreview()" placeholder="Guardian#0000" class="w-full bg-black border border-slate-800 p-3 text-sm tracking-wider text-white focus:border-amber-500 outline-none transition-all placeholder:text-slate-700">
             </div>
 
-            <div class="destiny-panel tech-corners p-6 rounded-sm">
-                <div class="flex gap-2 mb-6 border-b border-slate-800 pb-4">
-                    <button id="tab-raids" onclick="changeCategory('raids')" class="px-6 py-2 bg-amber-500/20 text-amber-500 font-bold border border-amber-500 rounded-sm">Raids</button>
-                    <button id="tab-dungeons" onclick="changeCategory('dungeons')" class="px-6 py-2 bg-slate-900 text-slate-400 font-bold border border-slate-700 rounded-sm hover:border-slate-500">Dungeons</button>
+            <div class="destiny-panel tech-corners p-5">
+                <div class="flex gap-4 mb-5 border-b border-slate-800 pb-4">
+                    <button id="tab-raids" onclick="changeCategory('raids')" class="text-xs font-bold uppercase tracking-widest px-4 py-2 border-b-2 border-amber-500 text-amber-500 transition">Raids</button>
+                    <button id="tab-dungeons" onclick="changeCategory('dungeons')" class="text-xs font-bold uppercase tracking-widest px-4 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-300 transition">Dungeons</button>
                 </div>
-                <div id="activities-grid" class="grid grid-cols-2 md:grid-cols-3 gap-3"></div>
-                <div id="encounters-grid" class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6"></div>
+                <div id="activities-grid" class="grid grid-cols-2 md:grid-cols-3 gap-2"></div>
+                <div id="encounters-grid" class="grid grid-cols-2 md:grid-cols-4 gap-2 mt-4"></div>
             </div>
         </section>
 
-        <!-- Right: Dispatch & History -->
         <section class="lg:col-span-4 space-y-6">
-            <div class="destiny-panel tech-corners p-6 rounded-sm">
-                <h2 class="text-xs font-bold text-slate-400 uppercase mb-4">COMMAND PREVIEW</h2>
-                <div id="queueString" class="text-center text-3xl font-bold text-amber-400 mono-font py-8 bg-black rounded border border-slate-800 break-all px-4">
+            <div class="destiny-panel tech-corners p-5">
+                <h2 class="text-[10px] font-bold text-slate-500 uppercase mb-3 tracking-widest">Command String</h2>
+                <div id="queueString" class="text-sm font-mono text-amber-500/90 py-4 bg-black border border-slate-800 px-3 break-all mb-3">
                     !queue
                 </div>
-                <button onclick="copyCommand()" class="w-full mt-4 bg-amber-600 hover:bg-amber-500 text-white font-bold py-4 rounded-sm uppercase tracking-widest text-lg shadow-[0_0_15px_rgba(217,119,6,0.3)] transition">
+                <button onclick="copyCommand()" class="w-full bg-amber-600/10 border border-amber-600/50 hover:bg-amber-600/20 text-amber-500 font-bold py-2 rounded-sm uppercase tracking-widest text-xs transition">
                     Copy to Clipboard
                 </button>
             </div>
 
-            <div class="destiny-panel tech-corners p-6 rounded-sm">
-                <h2 class="text-xs font-bold text-amber-500 uppercase mb-4 flex items-center gap-2">
-                    <i data-lucide="history" class="w-4 h-4"></i> Dispatch History
+            <div class="destiny-panel tech-corners p-5">
+                <h2 class="text-[10px] font-bold text-amber-500 uppercase mb-4 flex items-center gap-2">
+                    <i data-lucide="database" class="w-3 h-3"></i> Dispatch Log
                 </h2>
-                <div id="history-container" class="space-y-2">
-                    <p class="text-slate-600 italic text-sm">History empty.</p>
+                <div id="history-container" class="space-y-1">
+                    <p class="text-slate-600 italic text-[10px]">No recent commands.</p>
                 </div>
             </div>
         </section>
@@ -104,25 +101,23 @@
     <script>
         const ACTIVITY_DATA = {
             raids: [
-                { id: "se", name: "Salvation's Edge", hasMaster: true, encounters: ["1: Substratum", "2: Dissipation", "3: Repository", "4: Verity", "5: Witness"] },
-                { id: "ron", name: "Root of Nightmares", hasMaster: true, encounters: ["1: Cataclysm", "2: Scission", "3: Macrocosm", "4: Nezarec"] }
+                { id: "se", name: "Salvation's Edge", encounters: ["1: Substratum", "2: Dissipation", "3: Repository", "4: Verity", "5: Witness"] },
+                { id: "ron", name: "Root of Nightmares", encounters: ["1: Cataclysm", "2: Scission", "3: Macrocosm", "4: Nezarec"] }
             ],
             dungeons: [
-                { id: "wr", name: "Warlord's Ruin", hasMaster: true, encounters: ["1: Rathil", "2: Tempest", "3: Hefnd"] },
-                { id: "gotd", name: "Ghosts of the Deep", hasMaster: true, encounters: ["1: Ritual", "2: Ecthar", "3: Simmumah"] }
+                { id: "wr", name: "Warlord's Ruin", encounters: ["1: Rathil", "2: Tempest", "3: Hefnd"] },
+                { id: "gotd", name: "Ghosts of the Deep", encounters: ["1: Ritual", "2: Ecthar", "3: Simmumah"] }
             ]
         };
 
         let category = 'raids';
         let activity = ACTIVITY_DATA.raids[0];
         let encounter = activity.encounters[0];
-        let isMaster = false;
         let history = [];
 
         function updatePreview() {
             const name = document.getElementById('bungiename').value || "Guardian#0000";
-            const diff = isMaster ? "master" : "normal";
-            const cmd = `!queue ${activity.id} ${encounter.split(':')[0]} ${isMaster ? 'm' : 'n'} ${name}`;
+            const cmd = `!queue ${activity.id} ${encounter.split(':')[0]} ${name}`;
             document.getElementById('queueString').innerText = cmd;
         }
 
@@ -137,8 +132,6 @@
         function copyCommand() {
             const cmd = document.getElementById('queueString').innerText;
             navigator.clipboard.writeText(cmd);
-            
-            // Add to history
             if (history.length === 0 || history[0] !== cmd) {
                 history.unshift(cmd);
                 if (history.length > 5) history.pop();
@@ -148,37 +141,32 @@
 
         function renderHistory() {
             const container = document.getElementById('history-container');
-            if (history.length === 0) {
-                container.innerHTML = '<p class="text-slate-600 italic text-sm">History empty.</p>';
-                return;
-            }
-            container.innerHTML = history.map(cmd => `
-                <button onclick="navigator.clipboard.writeText('${cmd}')" class="w-full text-left p-3 bg-slate-900 border border-slate-800 hover:border-amber-500 transition rounded-sm mono-font text-xs text-amber-500/90 truncate">
-                    ${cmd}
-                </button>
-            `).join('');
+            container.innerHTML = history.length === 0 
+                ? '<p class="text-slate-600 italic text-[10px]">No recent commands.</p>' 
+                : history.map(cmd => `
+                    <button onclick="navigator.clipboard.writeText('${cmd}')" class="w-full text-left p-2 bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition mono-font text-[10px] text-amber-500/70 truncate">
+                        ${cmd}
+                    </button>
+                `).join('');
         }
 
         function render() {
-            // Render Activities
             const grid = document.getElementById('activities-grid');
             grid.innerHTML = ACTIVITY_DATA[category].map(a => `
-                <button onclick="selectActivity('${a.id}')" class="p-3 text-sm font-bold border ${activity.id === a.id ? 'border-amber-500 bg-amber-500/10 text-amber-500' : 'border-slate-800 text-slate-400'} rounded-sm hover:border-amber-500 transition">
+                <button onclick="selectActivity('${a.id}')" class="p-2 text-[10px] font-bold border ${activity.id === a.id ? 'border-amber-500 text-amber-500' : 'border-slate-800 text-slate-500 hover:border-slate-600'} transition uppercase tracking-wider">
                     ${a.name}
                 </button>
             `).join('');
             
-            // Render Encounters
             const encGrid = document.getElementById('encounters-grid');
             encGrid.innerHTML = activity.encounters.map(e => `
-                <button onclick="selectEncounter('${e}')" class="p-3 text-xs font-bold border ${encounter === e ? 'border-amber-500 text-amber-500' : 'border-slate-800 text-slate-400'} rounded-sm hover:border-amber-500 transition">
+                <button onclick="selectEncounter('${e}')" class="p-2 text-[10px] font-bold border ${encounter === e ? 'border-amber-500 text-amber-500' : 'border-slate-800 text-slate-500 hover:border-slate-600'} transition">
                     ${e}
                 </button>
             `).join('');
 
-            // Difficulty UI
-            document.getElementById('tab-raids').className = category === 'raids' ? 'px-6 py-2 bg-amber-500/20 text-amber-500 font-bold border border-amber-500 rounded-sm' : 'px-6 py-2 bg-slate-900 text-slate-400 font-bold border border-slate-700 rounded-sm';
-            document.getElementById('tab-dungeons').className = category === 'dungeons' ? 'px-6 py-2 bg-amber-500/20 text-amber-500 font-bold border border-amber-500 rounded-sm' : 'px-6 py-2 bg-slate-900 text-slate-400 font-bold border border-slate-700 rounded-sm';
+            document.getElementById('tab-raids').className = category === 'raids' ? 'text-xs font-bold uppercase tracking-widest px-4 py-2 border-b-2 border-amber-500 text-amber-500 transition' : 'text-xs font-bold uppercase tracking-widest px-4 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-300 transition';
+            document.getElementById('tab-dungeons').className = category === 'dungeons' ? 'text-xs font-bold uppercase tracking-widest px-4 py-2 border-b-2 border-amber-500 text-amber-500 transition' : 'text-xs font-bold uppercase tracking-widest px-4 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-300 transition';
         }
 
         function selectActivity(id) {

@@ -342,7 +342,7 @@
                     <!-- Left Column (6 cols): Primary Activities List -->
                     <div class="md:col-span-6 flex flex-col gap-2">
                         <h3 class="text-[11px] font-bold uppercase tracking-[0.2em] text-white mb-1 flex items-center gap-1.5">
-                            <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-theme-primary" id="chevron-raid-title"></i> Raid
+                            <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-theme-primary" id="chevron-raid-title"></i> <span id="activities-title-label">Raid</span>
                         </h3>
                         <div id="activities-grid" class="flex flex-col gap-1.5 max-h-[300px] overflow-y-auto pr-2">
                             <!-- Activities populated dynamically -->
@@ -435,7 +435,6 @@
                     >
                         <i data-lucide="copy" class="w-4.5 h-4.5 text-[#040811]"></i> Copy
                     </button>
-                    <p class="text-[10px] text-center text-white tracking-wider">Send compiled parameters directly into active terminal console channels.</p>
                 </div>
             </div>
 
@@ -470,14 +469,14 @@
                         <div class="w-5 h-5 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-[11px] font-bold text-theme-primary font-mono flex-shrink-0" id="step-number-2">2</div>
                         <div class="flex-1 space-y-0.5">
                             <p class="font-bold text-white uppercase tracking-wider">CHOOSE DESTINATION</p>
-                            <p>Select standard activities folder followed by target checkpoint sector.</p>
+                            <p>Select activity followed by encounter.</p>
                         </div>
                     </div>
                     <div class="flex items-start gap-2.5">
                         <div class="w-5 h-5 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-[11px] font-bold text-theme-primary font-mono flex-shrink-0" id="step-number-3">3</div>
                         <div class="flex-1 space-y-0.5">
                             <p class="font-bold text-white uppercase tracking-wider">DISPATCH SIGNAL</p>
-                            <p>Copy compiled parameters, insert into logs, accept game invite & enjoy.</p>
+                            <p>Click to copy and paste it in any twitch checkpoint chatbox to queue.</p>
                         </div>
                     </div>
                 </div>
@@ -490,9 +489,6 @@
     <!-- Footer Area -->
     <footer class="border-t border-slate-900 bg-slate-950/80 py-5 mt-12 text-slate-200 relative">
         <div class="max-w-7xl mx-auto px-4 text-center space-y-1">
-            <p class="text-[12px] tracking-wider text-white" id="footer-branding-title">
-                TRAVELER'S CHOSEN TERMINAL ARCHITECTURE // AUTHENTICATED ACCESS ONLY
-            </p>
             <p class="text-[10px] text-slate-400">
                 Independent vanguard application. Destiny 2, Destiny, and all associated images and assets remain property of Bungie, Inc.
             </p>
@@ -512,7 +508,6 @@
 
     <!-- Scripting Core -->
     <script>
-        // Full activity and encounter records structure mapping
         const ACTIVITY_DATA = {
             raids: [
                 {
@@ -772,7 +767,6 @@
             renderCopiedHistory();
         };
 
-        // Dynamic Attuned Subclass Switcher Function
         function setTheme(themeName, triggerToast = true) {
             activeTheme = themeName;
             
@@ -812,7 +806,6 @@
             changeCategory(currentCategory);
         }
 
-        // Change categories & update tab styling dynamically using custom attributes
         function changeCategory(categoryKey) {
             currentCategory = categoryKey;
             
@@ -825,6 +818,18 @@
                     btn.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-bold transition-all text-white ml-1 hover:text-slate-100";
                 }
             });
+
+            // Dynamically reflect left list column title
+            const listTitleLabel = document.getElementById('activities-title-label');
+            if (listTitleLabel) {
+                if (categoryKey === 'raids') {
+                    listTitleLabel.innerText = "Raid";
+                } else if (categoryKey === 'dungeons') {
+                    listTitleLabel.innerText = "Dungeon";
+                } else if (categoryKey === 'stories') {
+                    listTitleLabel.innerText = "Other / Exotic";
+                }
+            }
 
             loadCategoryGrid();
             filterActivities();
@@ -867,7 +872,6 @@
             }
         }
 
-        // Renders primary activities block list with dynamic subclass theme highlighting
         function renderActivitiesList(filteredList) {
             const container = document.getElementById('activities-grid');
             container.innerHTML = '';
@@ -975,7 +979,6 @@
             renderActivitiesList(filtered);
         }
 
-        // Updates selection & copy history system to render custom structured click-to-copy buttons
         function addCopiedHistoryRecord(raidName, encounterLabel, difficultyLabel, playerName, commandText) {
             const entry = {
                 id: Date.now(),
@@ -998,7 +1001,7 @@
             renderCopiedHistory();
         }
 
-        // Render past selection custom buttons formatted precisely as: <The name of the raid> <encounter> <difficulty> <player name>
+        // Render past selection custom buttons with maximum contrast and layout popping
         function renderCopiedHistory() {
             const container = document.getElementById('terminal-logs');
             container.innerHTML = '';
@@ -1012,7 +1015,7 @@
                 const btn = document.createElement('button');
                 btn.className = "w-full text-left p-2.5 rounded bg-slate-950 border border-slate-900 hover:border-theme-primary/50 hover:bg-theme-glow transition-all flex flex-wrap items-center gap-x-1.5 gap-y-0.5 font-sans text-xs";
                 
-                // Construct clean click-to-copy design block
+                // Construct clean click-to-copy design block with a high contrast standalone player badge
                 btn.innerHTML = `
                     <span class="text-slate-100 font-semibold">${item.raidName}</span>
                     <span class="text-slate-600 select-none">//</span>
@@ -1021,7 +1024,7 @@
                     <span class="text-theme-primary font-bold uppercase text-[10px] tracking-wider">${item.difficultyLabel}</span>
                     ${item.playerName ? `
                         <span class="text-slate-600 select-none">//</span>
-                        <span class="text-white font-mono bg-slate-900 px-1 py-0.5 rounded text-[11px] font-bold">${item.playerName}</span>
+                        <span class="text-[#040811] font-mono bg-white px-2 py-0.5 rounded text-[11px] font-bold shadow-[0_2px_4px_rgba(0,0,0,0.15)] tracking-wide uppercase">${item.playerName}</span>
                     ` : ''}
                 `;
                 

@@ -1,4 +1,3 @@
-Hello guardians, I used AI to customize "https://travelerschosen.github.io/CheckpointQueueHelper/" website.
-Its able to remember your past guardian name including the raid or any encounter you copied.
+Hi everyone, I wanted to share a project I've been working on. I’ve customized the Checkpoint Queue Helper with a unique theme and added a few helpful features, including persistent local storage to remember your past Guardian names and encounters.
 
-This is all made for fun, with the idea of ease of access and i do not own any thing of this.
+This was built purely for fun to improve ease-of-access for raid groups. All credit for the underlying concept goes to the original developers; this is just a personal re-skin to help the community. Hope you find it useful for your next run!

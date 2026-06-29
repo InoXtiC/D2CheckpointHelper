@@ -15,6 +15,7 @@
             font-size: 17px !important; /* Scaled up default baseline font size by 1 point */
         }
 
+        /* */
         /* Default Subclass Variables: Strand (Emerald Green) */
         :root {
             --theme-color: #10b981; 
@@ -114,6 +115,7 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
+        /* */
         /* Destiny Vanguard style angled borders and glowing states using dynamic variables */
         .destiny-panel {
             background: rgba(4, 7, 14, 0.93);
@@ -246,6 +248,7 @@
                 </div>
             </div>
             
+            <!-- -->
             <!-- STEP 1: Guardian Config & Bungie Name Registry -->
             <div class="destiny-panel tech-corners p-5 rounded-sm">
                 <!-- Decorative Top Tech Accent Bar -->
@@ -262,12 +265,13 @@
                         
                         <!-- Validation input wrapper -->
                         <div class="relative w-full md:w-80">
+                            <!-- REMOVED 'uppercase' class to disable auto-all-caps typing -->
                             <input 
                                 type="text" 
                                 id="bungiename" 
                                 oninput="onBungieNameChange()"
-                                placeholder="GUARDIAN#0000" 
-                                class="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-sm px-4 py-2.5 text-white placeholder-slate-700 focus:outline-none transition-all text-sm tracking-wider uppercase mono-font focus:ring-1 focus:ring-amber-500/30"
+                                placeholder="Guardian#0000" 
+                                class="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-sm px-4 py-2.5 text-white placeholder-slate-700 focus:outline-none transition-all text-sm tracking-wider mono-font focus:ring-1 focus:ring-amber-500/30"
                             >
                             <!-- Validation Badge -->
                             <div id="validation-badge" class="absolute right-2 top-2.5 flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded text-rose-400 bg-rose-500/10 border border-rose-500/20">
@@ -283,9 +287,7 @@
                             <span class="text-[11px] font-bold text-slate-100 tracking-wider uppercase flex items-center gap-1.5">
                                 <i data-lucide="history" class="w-3.5 h-3.5"></i> Profile Registry History
                             </span>
-                            <button onclick="clearHistory()" class="text-[10px] text-rose-400 hover:text-rose-300 transition-colors uppercase font-semibold flex items-center gap-1">
-                                <i data-lucide="trash-2" class="w-3 h-3"></i> Clear Records
-                            </button>
+                            <!-- Clear records button removed based on design preferences -->
                         </div>
                         
                         <!-- Saved Profile Buttons (populated dynamically) -->
@@ -398,6 +400,7 @@
 
         </section>
 
+        <!-- -->
         <!-- Right Section (Lg: 4 cols): Output HUD, Console & Operational Guides -->
         <section class="lg:col-span-4 flex flex-col gap-6">
             
@@ -420,7 +423,8 @@
                     <div class="space-y-1.5">
                         <span class="text-[11px] text-slate-100 font-bold uppercase tracking-widest">TRANSMIT PACKET PREVIEW</span>
                         <div class="bg-slate-950 border border-slate-900 hover:border-amber-500/30 rounded-sm p-4 min-h-[90px] flex items-center justify-center transition-all" id="packet-preview-container">
-                            <p id="queueString" class="mono-font text-center text-theme-primary font-bold break-all text-sm tracking-widest select-all uppercase">
+                            <!-- REMOVED 'uppercase' class to keep exact mixed-case for copied guardian identity -->
+                            <p id="queueString" class="mono-font text-center text-theme-primary font-bold break-all text-sm tracking-widest select-all">
                                 !queue se 1 n
                             </p>
                         </div>
@@ -433,7 +437,7 @@
                         onclick="copyCommand()" 
                         class="w-full flex items-center justify-center gap-2 btn-theme-cta font-bold py-3 px-4 rounded-sm text-xs tracking-widest uppercase"
                     >
-                        <i data-lucide="copy" class="w-4.5 h-4.5 text-[#040811]"></i> Copy
+                        <i data-lucide="copy" class="w-4.5 h-4.5 text-[#040811]"></i> Copy and Open Twitch
                     </button>
                 </div>
             </div>
@@ -728,6 +732,7 @@
             ]
         };
 
+        /* */
         // Application State Management
         let currentCategory = 'raids';
         let activeActivityId = 'se';
@@ -853,8 +858,7 @@
             const activity = list.find(item => item.id === activityId);
             
             if (activity) {
-                // Ensure Guardian is processed and saved if valid during raid switch
-                checkAndSaveActiveGuardian();
+                // FIXED: Auto-saving of typed guardian on click of other activities has been completely disabled.
 
                 // Handle master difficulty toggle validation
                 if (!activity.hasMaster && isMasterDifficulty) {
@@ -931,9 +935,10 @@
             lucide.createIcons();
         }
 
+        /* */
         function selectEncounter(id) {
             activeEncounterId = id;
-            checkAndSaveActiveGuardian();
+            // FIXED: Auto-saving on encounter change has been completely disabled.
             
             const list = ACTIVITY_DATA[currentCategory];
             const activity = list.find(item => item.id === activeActivityId);
@@ -1001,6 +1006,7 @@
             renderCopiedHistory();
         }
 
+        /* */
         // Render past selection custom buttons with maximum contrast and layout popping
         function renderCopiedHistory() {
             const container = document.getElementById('terminal-logs');
@@ -1016,6 +1022,7 @@
                 btn.className = "w-full text-left p-2.5 rounded bg-slate-950 border border-slate-900 hover:border-theme-primary/50 hover:bg-theme-glow transition-all flex flex-wrap items-center gap-x-1.5 gap-y-0.5 font-sans text-xs";
                 
                 // Construct clean click-to-copy design block with a high contrast standalone player badge
+                // REMOVED forced uppercase on player names
                 btn.innerHTML = `
                     <span class="text-slate-100 font-semibold">${item.raidName}</span>
                     <span class="text-slate-600 select-none">//</span>
@@ -1024,7 +1031,7 @@
                     <span class="text-theme-primary font-bold uppercase text-[10px] tracking-wider">${item.difficultyLabel}</span>
                     ${item.playerName ? `
                         <span class="text-slate-600 select-none">//</span>
-                        <span class="text-[#040811] font-mono bg-white px-2 py-0.5 rounded text-[11px] font-bold shadow-[0_2px_4px_rgba(0,0,0,0.15)] tracking-wide uppercase">${item.playerName}</span>
+                        <span class="text-[#040811] font-mono bg-white px-2 py-0.5 rounded text-[11px] font-bold shadow-[0_2px_4px_rgba(0,0,0,0.15)] tracking-wide">${item.playerName}</span>
                     ` : ''}
                 `;
                 
@@ -1062,8 +1069,7 @@
                 icon.setAttribute('data-lucide', 'check-circle-2');
                 text.innerText = "Verified";
                 
-                // Add to internal memories dynamically
-                saveGuardianProfile(value);
+                // FIXED: Dynamic profile saving on input-change typing has been completely disabled.
             } else {
                 badge.className = "absolute right-2 top-2.5 flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded text-rose-400 bg-rose-500/10 border border-rose-500/20";
                 icon.setAttribute('data-lucide', 'x-circle');
@@ -1086,6 +1092,7 @@
             }
         }
 
+        // Populate history items with white background, black text, and an increased font size (+1pt)
         function refreshGuardianRegistry() {
             const container = document.getElementById('saved-guardians-list');
             container.innerHTML = '';
@@ -1097,7 +1104,8 @@
 
             savedGuardians.forEach(guardian => {
                 const btn = document.createElement('button');
-                btn.className = "text-[12px] font-mono tracking-wide px-2.5 py-1 rounded bg-slate-950 border border-slate-900 hover:border-theme-primary/50 text-white hover:text-theme-primary transition-all uppercase";
+                // FIXED: Increased baseline text size to 13px (added 1pt), pure white background, black text, and REMOVED 'uppercase' class to maintain casing
+                btn.className = "text-[13px] font-mono font-bold tracking-wide px-3 py-1.5 rounded-sm bg-white text-black hover:bg-slate-200 transition-all shadow-md";
                 btn.innerText = guardian;
                 btn.onclick = () => {
                     document.getElementById('bungiename').value = guardian;
@@ -1105,13 +1113,6 @@
                 };
                 container.appendChild(btn);
             });
-        }
-
-        function clearHistory() {
-            savedGuardians = [];
-            localStorage.removeItem('saved_guardians');
-            refreshGuardianRegistry();
-            showToast("Wipe Complete", "Archived profile records cleared.", "warn");
         }
 
         // Compiles the queue string outputs dynamically, incorporating the active Bungie Name
@@ -1126,7 +1127,7 @@
 
         // Clipboard Copy Execution
         function copyCommand() {
-            // Save active typed guardian identifier first if valid
+            // Save active typed guardian identifier first if valid ONLY upon copy command trigger
             checkAndSaveActiveGuardian();
 
             const textToCopy = document.getElementById('queueString').innerText;
@@ -1145,6 +1146,9 @@
 
             executeClipboardWrite(textToCopy);
             showToast("Telemetry Copied", "Signal packet prepared on clipboard matrix.");
+
+            // Open Twitch stream in a new tab
+            window.open("https://www.twitch.tv/luckbot9", "_blank");
         }
 
         // Standalone browser clipboard tool fallback

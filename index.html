@@ -437,7 +437,7 @@
                         onclick="copyCommand()" 
                         class="w-full flex items-center justify-center gap-2 btn-theme-cta font-bold py-3 px-4 rounded-sm text-xs tracking-widest uppercase"
                     >
-                        <i data-lucide="copy" class="w-4.5 h-4.5 text-[#040811]"></i> Copy and Open Twitch
+                        <i data-lucide="copy" class="w-4.5 h-4.5 text-[#040811]"></i> Copy
                     </button>
                 </div>
             </div>
@@ -1146,9 +1146,6 @@
 
             executeClipboardWrite(textToCopy);
             showToast("Telemetry Copied", "Signal packet prepared on clipboard matrix.");
-
-            // Open Twitch stream in a new tab
-            window.open("https://www.twitch.tv/luckbot9", "_blank");
         }
 
         // Standalone browser clipboard tool fallback
